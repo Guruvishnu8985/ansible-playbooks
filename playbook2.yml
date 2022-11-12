@@ -1,0 +1,29 @@
+---
+- name: configuration apache
+  hosts: all
+  tasks: 
+    - name: install apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+    - name: edit the index.thl file
+      copy:
+        content: "weolcome to world gutu vishnu"     
+        dest: /var/www/html/index.html
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
+    - name: check apache response on server1
+      uri:
+       url: http://172.31.22.198
+       status_code: 200
+    - name: check apache response to server2
+      uri:
+       url: http://172.31.19.28
+       status_code: 200     
+
+...         
+
+        
